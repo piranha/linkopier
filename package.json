@@ -1,0 +1,9 @@
+{
+    "name": "linkopier",
+    "license": "MPL 2.0",
+    "author": "Alexander Solovyov",
+    "version": "0.1",
+    "fullName": "linkopier",
+    "id": "linkopier@solovyov.net",
+    "description": "copy url/link under cursor to clipboard"
+}
