@@ -1,22 +1,23 @@
 var coord = {x: 0, y: 0};
 
-self.port.on('get-link', function() {
+document.addEventListener('mousemove', function(e) {
+    coord.x = e.clientX;
+    coord.y = e.clientY;
+});
+
+function getLink() {
     var el = document.elementFromPoint(coord.x, coord.y);
     var link;
     switch (el.tagName) {
     case 'A':
-        link = el.href;
-        break;
+        return el.href;
     case 'IMG':
-        link = el.src;
-        break;
+        return el.src;
     default:
-        link = '';
+        return '';
     }
-    self.port.emit('link', link);
-});
+}
 
-document.addEventListener('mousemove', function(e) {
-    coord.x = e.clientX;
-    coord.y = e.clientY;
+self.port.on('get-link', function() {
+    self.port.emit('link', getLink());
 });

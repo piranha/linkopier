@@ -6,6 +6,13 @@ var Hotkey = require('hotkeys').Hotkey;
 var notifications = require("notifications");
 
 var WORKERS = [];
+function activeWorker() {
+    for (var i = 0, l = WORKERS.length; i < l; i++) {
+        if (WORKERS[i].tab == tabs.activeTab) {
+            return WORKERS[i];
+        }
+    }
+}
 
 function fy(title, text) {
     notifications.notify({
@@ -15,7 +22,6 @@ function fy(title, text) {
 }
 
 function copyUrl() {
-    // fy('copy', tabs.activeTab.url);
     clipboard.set(tabs.activeTab.url);
 }
 
@@ -25,29 +31,19 @@ pagemod.PageMod({
     contentScriptFile: self.data.url('copy-link.js'),
     onAttach: function(worker) {
         WORKERS.push(worker);
-        // fy('attached', WORKERS.length);
         worker.on('detach', function() {
             WORKERS.splice(WORKERS.indexOf(worker), 1);
-            // fy('detached', WORKERS.length);
         });
         worker.port.on('link', function(link) {
-            // fy('got', link);
             clipboard.set(link, 'text');
         });
     }
 });
 
 function copyLink() {
-    var worker;
-    for (var i = 0, l = WORKERS.length; i < l; i++) {
-        if (WORKERS[i].tab == tabs.activeTab) {
-            worker = WORKERS[i];
-            break;
-        }
-    }
-    if (!worker)
-        return;
-    worker.port.emit('get-link');
+    var worker = activeWorker();
+    if (worker)
+        worker.port.emit('get-link');
 }
 
 
