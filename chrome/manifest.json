@@ -1,0 +1,16 @@
+{
+    "name": "linkopier",
+    "description": "Copy stuff under mouse cursor",
+    "version": "1.0",
+    "background_page": "background.html",
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["copy-link.js"],
+            "run_at": "document_start"
+        }
+    ],
+    "permissions": [
+        "clipboardWrite"
+    ]
+}
