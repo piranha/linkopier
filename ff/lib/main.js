@@ -3,7 +3,6 @@ var pagemod = require('page-mod');
 var self = require('self');
 var clipboard = require('clipboard');
 var Hotkey = require('hotkeys').Hotkey;
-var notifications = require("notifications");
 
 var WORKERS = [];
 function activeWorker() {
@@ -12,13 +11,6 @@ function activeWorker() {
             return WORKERS[i];
         }
     }
-}
-
-function fy(title, text) {
-    notifications.notify({
-        title: title.toString(),
-        text: text.toString()
-    });
 }
 
 function copyUrl() {
@@ -35,7 +27,8 @@ pagemod.PageMod({
             WORKERS.splice(WORKERS.indexOf(worker), 1);
         });
         worker.port.on('link', function(link) {
-            clipboard.set(link, 'text');
+            if (link)
+                clipboard.set(link, 'text');
         });
     }
 });
