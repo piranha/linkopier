@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body { padding: 1em; }
+      ul { margin-top: 0; }
+    </style>
+  </head>
+
+  <body>
+    <form>
+      <label>Animation length <input type="number" id="delay" name="delay" value="300" /></label>
+      <button type="submit">Save</button>
+    </form>
+
+    <p>
+      Hotkey customizations are coming when I'm not lazy or when somebody asked
+      nicely enough, right now hotkeys are:
+    </p>
+    <ul>
+      <li><code>Ctrl+s</code> - copy link or image under cursor url (link wins).</li>
+      <li><code>Ctrl+w</code> - same as ^, but as markdown.</li>
+      <li><code>Ctrl+a</code> - copy tab url.</li>
+    </ul>
+
+    <script src="options.js"></script>
+  </body>
+</html>
